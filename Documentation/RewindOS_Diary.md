@@ -40,4 +40,4 @@ Then, I moved to phase 3. Currently, I completed learning about fundamentals of 
 # 2/6/2025
 I finally done phase 3 at just 9:30 am, much earlier than phase 1 and 2. I also made a design blueprint for Rewind OS as Nova told me to do. Now, I can read the Bash scripts easily, they are much easier than I expected.\
 To start phase 4, I need to install a few things. First, I created a separate directory on GitHub for Rewind OS. Then, I connected Git on my laptop to my GitHub account. After that, I created separate directories inside to categorize my files and documents. I tried the first Git commands, it worked.\
-Then, I installed Oracle VirtualBox to make a virtual machine. I decided to install Fedora on it because I planned to make Rewind OS based on Fedora too. Everything went smoothly!\
+Then, I installed Oracle VirtualBox to make a virtual machine. I decided to install Fedora on it because I planned to make Rewind OS based on Fedora too. Everything went smoothly! After the Fedora virtual machine was installed, I went installing Developer Tools, Git, and XFCE on it. I also installed Brave to replace Firefox.
