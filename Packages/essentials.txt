@@ -1,3 +1,4 @@
+bazaar
 vlc
 flameshot
 catfish
