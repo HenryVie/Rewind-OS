@@ -1,1 +1,8 @@
-
+libreoffice-writer
+libreoffice-calc
+libreoffice-impress
+libreoffice-draw
+libreoffice-math
+libreoffice-base
+spotify
+obs-studio
