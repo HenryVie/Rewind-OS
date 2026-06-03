@@ -49,3 +49,10 @@ I'm ready for phase 4. Before I really start, I identified target users and apps
 **Linux beginner:** LibreOffice apps, Steam, ProtonPlus, RetroArch, Spotify.\
 **Creator:** GIMP, Krita, Inkscape, Blender, Kdenlive, OBS Studio.\
 All profiles have browser: Brave/Chrome/FireFox.
+## Phase 4 Milestone:
+Created and tested the first working Rewind OS script: Scripts/install/install-packages.sh\
+The script reads package names from a text file and installs them automatically using DNF. Learned:
+- Bash variables
+- Executable permission
+- Package installation automation
+- Github token authentication
