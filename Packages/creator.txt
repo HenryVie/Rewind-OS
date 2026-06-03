@@ -1,1 +1,6 @@
-
+gimp
+krita
+inkscape
+blender
+kdenlive
+obs-studio
