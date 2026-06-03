@@ -1,1 +1,10 @@
-
+libreoffice-writer
+libreoffice-calc
+libreoffice-impress
+libreoffice-draw
+libreoffice-base
+libreoffice-math
+steam
+proton-plus
+retroarch
+spotify
