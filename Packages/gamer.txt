@@ -1,1 +1,6 @@
-
+proton-plus
+steam
+retroarch
+lutris
+obs-studio
+wine
