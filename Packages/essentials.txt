@@ -1,4 +1,5 @@
-brave-browser/chrominum/firefox/edge
 vlc
 flameshot
 catfish
+evince
+file-roller
