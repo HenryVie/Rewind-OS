@@ -56,3 +56,6 @@ The script reads package names from a text file and installs them automatically 
 - Executable permission
 - Package installation automation
 - Github token authentication
+
+Wrote and tested the profile installation script sucessfully: Scripts/install/install-profile.sh\
+The script reads profile name inputted in the terminal, finds and installs packages based on that profile and also install essentials package. Instead of having to code the command sudo dnf install over and over again, I used the install-package script that I wrote to directly install the packages.
