@@ -1,5 +1,5 @@
 # XFCE Review
-XFCE gives an almost familliar vibe comapared to Windows. It gives a classic vibe because of the design of app windows and buttons which fits the design philosophy of Rewind OS.
+XFCE gives an almost familliar vibe comapared to Windows. It gives a classic vibe because of the design of app windows and buttons which fits the design goal of Rewind OS.
 The desktop allows to put app shortcuts on there and the location of app bar makes it simillar to Windows.
 However, there are some fatal cons that make this desktop environment currently a bit uncomfortable to use and might not be good for modern users:
 - When view the system's apps like Settings, the texts are usually be a bit blured, makes it harder to read. Even if the user can read, this affect the aethestic of the system.
@@ -7,4 +7,6 @@ However, there are some fatal cons that make this desktop environment currently 
 - On Fedora GNOME, the Super key will open app menu which is Mac-like. However, Super key on Fedora XFCE does absolute nothing. I find no button to open the app menu, which is frusturated.
 - The panel section is unmoveable. I heard that it can be unlocked and drag by mouse pointer to the desired location, but it is complicated for a new XFCE user like me. There should be a section inside Settings which allows user to choose the location of the panel: bottom, top, left, right. Just like Ubuntu's dock. Maybe the panel itself is not so neccessary as it looks like a Start menu. It should be replaced by Start menu which will pop up if Super is pressed.
 - The app dock on the bottom should be removed and replaced like system tray or taskbar for the design purpose of Rewind OS. Plus, the Rewind logo will be located on the left or right of app taskbar and acts as the Windows button (Super button).
-  - The panel and app dock should be removed, and replaced by a combination of "Super button" and pinned apps on taskbar just like Windows. The taskbar will shows information like time, date, notification and action menu too. The user can customize the whole taskbar by right click on it and choose "Customize Taskbar" or do it in somewhat Settings section relates to customization.
+- The panel and app dock should be removed, and replaced by a combination of "Super button" and pinned apps on taskbar just like Windows. The taskbar will shows information like time, date, notification and action menu too. The user can customize the whole taskbar by right click on it and choose "Customize Taskbar" or do it in somewhat Settings section relates to customization.
+- There are some settings that thought to be related but in fact they're separated. Rewind OS will group them into sections.
+The desktop experience on Fedora XFCE feels classic but also inconvenient and not beginner-friendly. Rewind OS needs to give both the feeling and the experience. The themes should inspired by Windows 98 but the experience and features should be inspired by Windows 10 or 11.
