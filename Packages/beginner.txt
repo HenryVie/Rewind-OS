@@ -5,6 +5,8 @@ libreoffice-draw
 libreoffice-base
 libreoffice-math
 steam
+lutris
 proton-plus
+wine
 retroarch
 spotify
