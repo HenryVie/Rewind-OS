@@ -1,6 +1,30 @@
 #!/bin/bash
 
+personalize_wallpaper() {
+    WALLPAPER_PROPERTY=$(xfconf-query -c xfce4-desktop -l | grep last-image)
+    WIN98_CLASSIC="/home/nam/Rewind-OS/Themes/wallpapers/windows98_classic"
+    WIN98_BLUE="/home/nam/Rewind-OS/Themes/wallpapers/windows98_blue"
 
+    echo "What wallpaper do you want to set?"
+    echo "1. Windows 98 Classic"
+    echo "2. Windows 98 Blue"
+
+    read -r BG_CHOICE
+
+    case "$BG_CHOICE" in
+        1)
+            BG=$WIN98_CLASSIC
+            ;;
+        2)
+            BG=$WIN98_BLUE
+            ;;
+    esac
+
+    xfconf-query \
+    -c xfce4-desktop \
+    -p "$WALLPAPER_PROPERTY" \
+    -s "$BG"
+}
 
 while true; do
     clear
@@ -24,6 +48,14 @@ while true; do
             echo "1. Change Wallpaper"
             echo "2. Change theme"
             echo "3. Change accent color"
+
+            read -r PERSONALIZE_CHOICE
+            
+            case $PERSONALIZE_CHOICE in
+                1)
+                    personalize_wallpaper "$PERSONALIZE_CHOICE"
+                    ;;
+            esac
 
             echo ""
             read -rp "Press Enter to return..."
