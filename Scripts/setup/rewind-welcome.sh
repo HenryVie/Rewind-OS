@@ -16,7 +16,7 @@ case $OPTION in
         ;;
     2)
         echo "Opening Kineat Base..."
-        echo "Documentation is under construction"
+        ../rewind-apps/kineat-base.sh
         ;;
     3)
         exit
