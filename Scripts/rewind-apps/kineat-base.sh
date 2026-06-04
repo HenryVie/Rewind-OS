@@ -30,7 +30,7 @@ while true; do
             ;;
         3)
             clear
-            ../setup/rewind-welcome.sh
+            ./rewind-welcome.sh
             ;;
         *)
             echo "Invalid option"
