@@ -29,7 +29,10 @@
  
 Successfully tested with the Student profile.
 ## 04/6/2026
-- Created profile-menu.sh
+**Created profile-menu.sh**
 - Implemented profile selection interface
 - Successfully tested Creator profile installation
 - Learned how to resolve Git synchronization issues
+**Created rewind-welcome.sh prototype**
+- Added central entry point for Rewind setup experience
+- Connected welcome screen to profile installation workflow
