@@ -44,7 +44,20 @@ while true; do
             ;;
         4)
             clear
-            cat ../../Documentation/Kineat/about-rewind.md
+            echo "====================="
+            echo "   ABOUT REWIND OS"
+            echo "====================="
+
+            echo "Version: Prototype v0.1"
+            echo "Developer: Nguyen Dinh Nam a.k.a HenryVie"
+
+            echo ""
+            echo "System Information:"
+            echo "Fedora Version: $(grep '^PRETTY_NAME=' /etc/os-release | cut -d= -f2 | tr -d '"')"
+            echo "Kernel Version: $(uname -r)"
+            echo "Hostname: $(hostname)"
+            echo "XFCE Version: $(xfce4-about --version | head -n 1)"
+
             echo ""
             read -rp "Press Enter to return..."
             ;;
