@@ -14,3 +14,8 @@ Provide beginner-friendly access to common settings.
 - Gaming
 - AI Settings
 - Update Settings
+### Rewind Experience
+- First Startup Wizard
+- Welcome Screen
+- Neato
+- Beginner Tips
