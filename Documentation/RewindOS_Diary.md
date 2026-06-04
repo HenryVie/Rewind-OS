@@ -62,4 +62,8 @@ The script reads profile name inputted in the terminal, finds and installs packa
 ## 04/6/2026
 This morning, I wrote the script to show profile menu: /Scripts/setup/profile-menu.sh\
 Its job is to ask what type the user is (student, gamer, hobbyist, creator, Linux beginner). Then, after the user typed in their choice, it will automatically installs essential pack and the chosen profile pack. I tested with the Creator pack and it worked good, even I did have to fix a few things about file paths inside the scripts.\
-At noon, I wrote the first prototype of Rewind Welcome app and Kineat Base, made some documentation files to put in Kineat. I was able to connect them together that the user can access Kineat from the Welcome menu too.
+At noon, I wrote the first prototype of Rewind Welcome app and Kineat Base, made some documentation files to put in Kineat. I was able to connect them together that the user can access Kineat from the Welcome menu too.\
+I created the first prototype of Rewind Settings: Scripts/rewind-apps/rewind-settings.sh:
+- The settings now has a simple menu with a few options to customize the system
+- A "About" section which shows full detailed information of the system
+- Rewind Settings now has the first working feature: change background image

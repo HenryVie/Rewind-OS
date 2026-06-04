@@ -42,6 +42,6 @@ Successfully tested with the Student profile.
 - Implemented menu navigation loop
 - Successfully displayed documentation from Markdown files
 - Connected Kineat Base to Rewind Welcome
-**Rewind OS now has two working prototype applications:**
-- Rewind Welcome
-- Kineat Base
+**Created the first prototype of Rewind Settings:**
+- Added a simple CLI menu for the user
+- First working feature: changing background image
