@@ -2,8 +2,8 @@
 
 personalize_wallpaper() {
     WALLPAPER_PROPERTY=$(xfconf-query -c xfce4-desktop -l | grep last-image)
-    WIN98_CLASSIC="/home/nam/Rewind-OS/Themes/wallpapers/windows98_classic"
-    WIN98_BLUE="/home/nam/Rewind-OS/Themes/wallpapers/windows98_blue"
+    WIN98_CLASSIC="$HOME/Rewind-OS/Themes/wallpapers/windows98_classic"
+    WIN98_BLUE="$HOME/Rewind-OS/Themes/wallpapers/windows98_blue"
 
     echo "What wallpaper do you want to set?"
     echo "1. Windows 98 Classic"
