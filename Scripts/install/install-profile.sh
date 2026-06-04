@@ -20,9 +20,9 @@ if [ ! -f "$PROFILE_FILE" ]; then
 fi
 
 echo "Installing essential packages..."
-./install-packages.sh ../../Packages/essentials.txt
+../install/install-packages.sh ../../Packages/essentials.txt
 
 echo "Installing $PROFILE profile"
-./install-packages.sh "$PROFILE_FILE"
+../install/install-packages.sh "$PROFILE_FILE"
 
 echo "Installation completed!"
