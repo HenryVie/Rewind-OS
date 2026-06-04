@@ -4,10 +4,18 @@ personalize_wallpaper() {
     WALLPAPER_PROPERTY=$(xfconf-query -c xfce4-desktop -l | grep last-image)
     WIN98_CLASSIC="$HOME/Rewind-OS/Themes/wallpapers/windows98_classic"
     WIN98_BLUE="$HOME/Rewind-OS/Themes/wallpapers/windows98_blue"
+    WIN98_CLASSIC_BLANK="$HOME/Rewind-OS/Themes/wallpapers/windows98_classic_blank"
+    WIN98_SKY_BLANK="$HOME/Rewind-OS/Themes/wallpapers/windows98_sky_blank"
+    F43_NIGHT="$HOME/Rewind-OS/Themes/wallpapers/the_final_f43_night"
+    FEDORA_BLUE="$HOME/Rewind-OS/Themes/wallpapers/fedora_darkblue"
 
     echo "What wallpaper do you want to set?"
     echo "1. Windows 98 Classic"
     echo "2. Windows 98 Blue"
+    echo "3. Windows 98 Classic Blank"
+    echo "4. Windows 98 Sky Blank"
+    echo "5. The Final F43 Night"
+    echo "6. Fedora Dark Blue"
 
     read -r BG_CHOICE
 
@@ -17,6 +25,18 @@ personalize_wallpaper() {
             ;;
         2)
             BG=$WIN98_BLUE
+            ;;
+        3)
+            BG=$WIN98_CLASSIC_BLANK
+            ;;
+        4)
+            BG=$WIN98_SKY_BLANK
+            ;;
+        5)
+            BG=$F43_NIGHT
+            ;;
+        6)
+            BG=$FEDORA_BLUE
             ;;
     esac
 
