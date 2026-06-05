@@ -67,3 +67,5 @@ I created the first prototype of Rewind Settings: Scripts/rewind-apps/rewind-set
 - The settings now has a simple menu with a few options to customize the system
 - A "About" section which shows full detailed information of the system
 - Rewind Settings now has the first working feature: change background image
+## 05/6/2026
+This morning, I've successfully wrote a function in Rewind Settings which allows the user to change default web browser. It shows a list of installed browsers, the user input by number and the browser will be default by their choice. Additionally, I also modified the structure of the program. Now, the menu and sub-menu systems in Rewind Settings will allow user to do decisions or return to parent menu if they wanted to, because everything is put inside while loops now.
