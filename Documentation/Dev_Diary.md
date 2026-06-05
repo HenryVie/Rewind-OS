@@ -45,3 +45,6 @@ Successfully tested with the Student profile.
 **Created the first prototype of Rewind Settings:**
 - Added a simple CLI menu for the user
 - First working feature: changing background image
+## 05/6/2026
+- Created the function which allows user to choose an installed browser as default web browser
+- Modifed the structure of the manu system so user can choose to stay or return after finished a process
