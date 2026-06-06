@@ -48,3 +48,6 @@ Successfully tested with the Student profile.
 ## 05/6/2026
 - Created the function which allows user to choose an installed browser as default web browser
 - Modifed the structure of the manu system so user can choose to stay or return after finished a process
+## 06/6/2026
+**Created the first prototype of Rewind Technician:**
+- Have diagnostic feature for: system information, internet connection status, disk space usage and memory usage

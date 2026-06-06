@@ -69,3 +69,5 @@ I created the first prototype of Rewind Settings: Scripts/rewind-apps/rewind-set
 - Rewind Settings now has the first working feature: change background image
 ## 05/6/2026
 This morning, I've successfully wrote a function in Rewind Settings which allows the user to change default web browser. It shows a list of installed browsers, the user input by number and the browser will be default by their choice. Additionally, I also modified the structure of the program. Now, the menu and sub-menu systems in Rewind Settings will allow user to do decisions or return to parent menu if they wanted to, because everything is put inside while loops now.
+## 06/6/2026
+Today, I created the first complete prototype of Rewind Technician: Scripts/rewind-apps/rewind-settings.sh. Currently, the app just have diagnostic features. The user can choose to see their system's information, check internet connection status, see RAM usage and disk space usage.
