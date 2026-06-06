@@ -21,3 +21,5 @@
 - Added feature: Change default browser. Now, user can choose an installed browser to be their default web browser. Current list has Brave, Chromium, and Firefox
 - Improved minor experience: Now, the menu will be put in a while loop. Thr user can choose to stay in the current menu or use features until they are pleased
 - Improved minor Change wallpaper experience: From now, the program will output a message telling that the user's chosen image is now became their wallpaper
+### Version Prototype 1.4
+- Connected Rewind Settings to Rewind Welcome. From now, if Settings is launched from Welcome, when the user choose exit, it returns to Welcome instead of killing the whole shell
