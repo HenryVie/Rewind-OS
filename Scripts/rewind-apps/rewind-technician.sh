@@ -64,6 +64,57 @@ mem_usage() {
     read -rp "Press Enter to return"
 }
 
+update_checker() {
+    clear
+
+    echo "CHECK FOR UPDATES"
+    echo ""
+
+    echo "Checking..."
+
+    dnf check-update
+    
+    echo ""
+    read -rp "Press Enter to return"
+}
+
+refresh_packcache() {
+    clear
+
+    echo "REFRESH PACKAGE CACHE"
+    echo ""
+
+    sudo dnf makecache
+    echo ""
+    echo "Package cache refreshed successfully!"
+
+    echo ""
+    read -rp "Press Enter to return"
+}
+
+installed_repo() {
+    clear
+
+    echo "INSTALLED REPOSITORIES"
+    echo ""
+
+    dnf repolist
+
+    echo ""
+    read -rp "Press Enter to return"
+}
+
+sys_uptime() {
+    clear
+    echo "SYSTEM UPTIME"
+    echo ""
+
+    UPTIME=$(uptime -p | sed 's/^./\U&/')
+    echo "$UPTIME"
+
+    echo ""
+    read -rp "Press Enter to return"
+}
 
 while true; do
     clear
@@ -78,7 +129,11 @@ while true; do
     echo "2. Internet Status"
     echo "3. Disk Space"
     echo "4. Memory Usage"
-    echo "5. Exit"
+    echo "5. Check for Updates"
+    echo "6. Refresh Package Cache"
+    echo "7. Installed Repositories"
+    echo "8. System Uptime"
+    echo "9. Exit"
     
     read -r TECHINICAN_MENU
     case $TECHINICAN_MENU in
@@ -95,6 +150,18 @@ while true; do
             mem_usage
             ;;
         5)
+            update_checker
+            ;;
+        6)
+            refresh_packcache
+            ;;
+        7)
+            installed_repo
+            ;;
+        8)
+            sys_uptime
+            ;;
+        9)
             if [ "$CALLER" = "welcome" ]; then
                 clear && ./rewind-welcome.sh
                 exit
