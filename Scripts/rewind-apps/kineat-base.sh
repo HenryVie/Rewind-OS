@@ -3,6 +3,8 @@
 while true; do
     clear
 
+    CALLER="$1"
+
     echo "==================="
     echo "   KINEAT BASE"
     echo "==================="
@@ -11,7 +13,7 @@ while true; do
 
     echo "1. About Rewind OS"
     echo "2. User profiles"
-    echo "3. Return to Startup menu"
+    echo "3. Exit"
 
     read -r KINEAT_OPTION
 
@@ -29,8 +31,13 @@ while true; do
             read -rp "Press Enter to return..."
             ;;
         3)
-            clear
-            ./rewind-welcome.sh
+            if [ "$CALLER" = "welcome" ]; then
+                clear && ./rewind-welcome.sh
+                exit
+            else
+                clear
+                exit
+            fi
             ;;
         *)
             echo "Invalid option"

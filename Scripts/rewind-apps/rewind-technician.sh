@@ -64,45 +64,49 @@ mem_usage() {
     read -rp "Press Enter to return"
 }
 
-main () {
-    while true; do
-        clear
 
-        echo "======================"
-        echo "  REWIND TECHNICIAN"
-        echo "======================"
+while true; do
+    clear
 
-        echo "1. System Information"
-        echo "2. Internet Status"
-        echo "3. Disk Space"
-        echo "4. Memory Usage"
-        echo "5. Exit"
+    CALLER="$1"        
 
-        read -r TECHINICAN_MENU
+    echo "======================"
+    echo "  REWIND TECHNICIAN"
+    echo "======================"
 
-        case $TECHINICAN_MENU in
-            1)
-                sys_info
-                ;;
-            2)
-                internet_stat
-                ;;
-            3)
-                disk_space
-                ;;
-            4)
-                mem_usage
-                ;;
-            5)
-                clear && exit
-                ;;
-            *)
-                echo "Invalid choice. Please try again"
-                echo ""
-                read -rp "Press Enter to continue"
-                ;;
-        esac
-    done
-}
-
-main
+    echo "1. System Information"
+    echo "2. Internet Status"
+    echo "3. Disk Space"
+    echo "4. Memory Usage"
+    echo "5. Exit"
+    
+    read -r TECHINICAN_MENU
+    case $TECHINICAN_MENU in
+        1)
+            sys_info
+            ;;
+        2)
+            internet_stat
+            ;;
+        3)
+            disk_space
+            ;;
+        4)
+            mem_usage
+            ;;
+        5)
+            if [ "$CALLER" = "welcome" ]; then
+                clear && ./rewind-welcome.sh
+                exit
+            else
+                clear
+                exit
+            fi
+            ;;
+        *)
+            echo "Invalid choice. Please try again"
+            echo ""
+            read -rp "Press Enter to continue"
+            ;;
+    esac
+done

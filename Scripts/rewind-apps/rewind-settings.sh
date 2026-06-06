@@ -113,6 +113,9 @@ default_browser() {
 while true; do
     clear
 
+    CALLER="$1"
+    echo "CALLER = $CALLER"
+
     echo "====================="
     echo "   REWIND SETTINGS"
     echo "====================="
@@ -192,8 +195,13 @@ while true; do
             read -rp "Press Enter to return..."
             ;;
         5)
-            clear
-            ./rewind-welcome.sh
+            if [ "$CALLER" = "welcome" ]; then
+                clear && ./rewind-welcome.sh
+                exit
+            else
+                clear
+                exit
+            fi
             ;;
         *)
             echo "Invalid option"
