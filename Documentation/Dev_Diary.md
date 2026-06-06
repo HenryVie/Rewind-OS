@@ -50,4 +50,5 @@ Successfully tested with the Student profile.
 - Modifed the structure of the manu system so user can choose to stay or return after finished a process
 ## 06/6/2026
 **Created the first prototype of Rewind Technician:**
-- Have diagnostic feature for: system information, internet connection status, disk space usage and memory usage
+- Have diagnostic features for: system information, internet connection status, disk space usage and memory usage
+- Added more features: check for updates, refresh package cache, installed repositories, system uptime
