@@ -34,7 +34,7 @@ while true; do
             ;;
         3)
             if [ "$CALLER" = "welcome" ]; then
-                clear && ./rewind-welcome.sh
+                clear && "$REWIND_ROOT/Scripts/rewind-apps/rewind-welcome.sh"
                 exit
             else
                 clear

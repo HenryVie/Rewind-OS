@@ -1,5 +1,7 @@
 #!/bin/bash
 
+REWIND_ROOT="$HOME/Rewind-OS"
+
 clear
 
 echo "================================="
@@ -16,17 +18,17 @@ read -r OPTION
 
 case $OPTION in
     1)
-        ./profile-menu.sh
+        "$REWIND_ROOT/Scripts/install/profile-menu.sh"
         ;;
     2)
         echo "Opening Kineat Base..."
-        ./kineat-base.sh welcome
+        "$REWIND_ROOT/Scripts/rewind-apps/kineat-base.sh" welcome
         ;;
     3)
-        ./rewind-settings.sh welcome
+        "$REWIND_ROOT/Scripts/rewind-apps/rewind-settings.sh" welcome
         ;;
     4)
-        ./rewind-technician.sh welcome
+        "$REWIND_ROOT/Scripts/rewind-apps/rewind-technician.sh" welcome
         ;;
     5)
         clear && exit

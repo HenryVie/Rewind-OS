@@ -1,5 +1,7 @@
 #!/bin/bash
 
+REWIND_ROOT="$HOME/Rewind-OS"
+
 personalize_wallpaper() {
     clear
 
@@ -196,7 +198,7 @@ while true; do
             ;;
         5)
             if [ "$CALLER" = "welcome" ]; then
-                clear && ./rewind-welcome.sh
+                clear && "$REWIND_ROOT/Scripts/rewind-apps/rewind-welcome.sh"
                 exit
             else
                 clear
