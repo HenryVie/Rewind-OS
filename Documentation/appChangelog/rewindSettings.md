@@ -23,3 +23,7 @@
 - Improved minor Change wallpaper experience: From now, the program will output a message telling that the user's chosen image is now became their wallpaper
 ### Version Prototype 1.4
 - Connected Rewind Settings to Rewind Welcome. From now, if Settings is launched from Welcome, when the user choose exit, it returns to Welcome instead of killing the whole shell
+
+## 07/6/2026
+### Version Prototype 1.4.1
+- Fixed the bug which caused Rewind Settings to be unable to be launched from Welcome when Welcome is ran via app launcher

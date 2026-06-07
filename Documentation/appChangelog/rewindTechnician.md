@@ -15,3 +15,7 @@
 - Added feature: Refresh Package Cache. This feature will refresh the caches automatically
 - Added feature: Installed Repositories. This feature shows the installed packages on the machine
 - Added feature: System Uptime. This feature shows how long the system is running
+
+## 07/6/2026
+### Version Prototype 1.2.1
+- Fixed the bug which caused Rewind Technician to be unable to be launched from Welcome when Welcome is ran via app launcher
