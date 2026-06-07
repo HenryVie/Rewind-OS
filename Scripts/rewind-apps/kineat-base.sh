@@ -1,5 +1,7 @@
 #!/bin/bash
 
+REWIND_ROOT="$HOME/Rewind-OS"
+
 while true; do
     clear
 
@@ -20,13 +22,13 @@ while true; do
     case $KINEAT_OPTION in
         1)
             clear
-            cat ../../Documentation/Kineat/about-rewind.md
+            cat "$REWIND_ROOT/Documentation/Kineat/about-rewind.md"
             echo ""
             read -rp "Press Enter to return..."
             ;;
         2)
             clear
-            cat ../../Documentation/Kineat/user-profiles.md
+            cat "$REWIND_ROOT/Documentation/Kineat/user-profiles.md"
             echo ""
             read -rp "Press Enter to return..."
             ;;
