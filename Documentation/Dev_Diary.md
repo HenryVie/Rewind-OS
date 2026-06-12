@@ -52,3 +52,5 @@ Successfully tested with the Student profile.
 **Created the first prototype of Rewind Technician:**
 - Have diagnostic features for: system information, internet connection status, disk space usage and memory usage
 - Added more features: check for updates, refresh package cache, installed repositories, system uptime
+## 07/6/2026
+** Created app launcher for each Rewind apps**
