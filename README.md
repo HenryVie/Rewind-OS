@@ -21,8 +21,8 @@ Planning and learning phase.
 - [x] Phase 1: Linux Foundations
 - [x] Phase 2: Linux System Concepts
 - [x] Phase 3: Rewind OS Planning
-- [ ] Phase 4: Fedora Laboratory
-- [ ] Phase 5: Prototype Development
+- [x] Phase 4: Fedora Laboratory
+- [ ] Phase 5: Desktop Intergration
 
 ## Technologies
 
