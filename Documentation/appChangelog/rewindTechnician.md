@@ -19,3 +19,8 @@
 ## 07/6/2026
 ### Version Prototype 1.2.1
 - Fixed the bug which caused Rewind Technician to be unable to be launched from Welcome when Welcome is ran via app launcher
+
+## 17/6/2026
+### Version Prototype 2.0
+- Technician now became GUI app, given a simple graphical user interface by using Python and GTK toolkit
+- Connected as a function inside the new Rewind Hub app

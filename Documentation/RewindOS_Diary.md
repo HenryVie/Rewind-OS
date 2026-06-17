@@ -73,3 +73,12 @@ This morning, I've successfully wrote a function in Rewind Settings which allows
 Today, I created the first complete prototype of Rewind Technician: Scripts/rewind-apps/rewind-settings.sh. The app now has 8 features in total. The user can choose to see their system's information, check internet connection status, see RAM usage and disk space usage. Besides, the remain features will help the user to check for available package updates and show list of installed packages, it also do cache refresh for the user and shows the system uptime.
 ## 07/6/2026
 Today, I learned how to create a simple app launcher for Rewind apps. Just with a simple script, a proper app launcher already exist as normal apps in the system. It can appear in Applications menu and App search tool. I also connected all apps into Rewind Welcome, everything transitioned smoothly.
+## 10/6/2026
+Today, I start to learn GTK toolbox. I've done scripting terminal programs, now I want to make GUi apps. I chose GTK because it works good and stable with XFCE desktop environment.
+## 13/6/2026
+I've learned enough funamentals of GTK. Now, I'm starting to create one. I made a simple app screen with a few labels and empty buttons.
+## 15/6/2026
+Today, I made a graphic menu for Rewind Hub. I also learned alignment to position everything in the center. Each section has its own page and can be opened when the button it clicked.
+## 17/6/2026
+I learned stack method for pages, and I'm done making pages for Technician.
+I chose Technician to be the first section to focus on. I've made all its features to work and print them on the screen successfully.

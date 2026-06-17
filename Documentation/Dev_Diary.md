@@ -54,3 +54,12 @@ Successfully tested with the Student profile.
 - Added more features: check for updates, refresh package cache, installed repositories, system uptime
 ## 07/6/2026
 ** Created app launcher for each Rewind apps**
+## 10/6/2026
+**Created an empty GUI app by using Python and GTK, in learning process**
+## 13/6/2026
+**Creating prototype of Rewind Hub, the first GUI app: Scripts/rewind-apps/rewind_hub.py**
+## 15/6/2026
+**Created a full menu of Rewind Hub, includes Settings, Technician, and Kineat Base**
+## 17/6/2026
+**Finished stack pages for each functions. Now, all functions inside each section has their own page:**
+- Technician: all features completed. Working good.
