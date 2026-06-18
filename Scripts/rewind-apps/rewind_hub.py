@@ -60,6 +60,22 @@ class RewindHub(Gtk.ApplicationWindow):
             KineatPage(self),
             "kineat"
         )
+        self.stack.add_named(
+            KineatAbout(self),
+            "aboutrewind"
+        )
+        self.stack.add_named(
+            KineatProfiles(self),
+            "profiles"
+        )
+        self.stack.add_named(
+            KineatBasics(self),
+            "basics"
+        )
+        self.stack.add_named(
+            KineatApps(self),
+            "apps"
+        )
 
         self.set_child(self.stack)
 
@@ -88,6 +104,14 @@ class RewindHub(Gtk.ApplicationWindow):
 
     def go_kineat(self):
         self.stack.set_visible_child_name("kineat")
+    def go_kineatabout(self):
+        self.stack.set_visible_child_name("aboutrewind")
+    def go_profiles(self):
+        self.stack.set_visible_child_name("profiles")
+    def go_basics(self):
+        self.stack.set_visible_child_name("basics")
+    def go_apps(self):
+        self.stack.set_visible_child_name("apps")
 
     # Event Functions
     def on_exit_clicked(self, button):
@@ -746,7 +770,15 @@ class KineatPage(Gtk.Box):
         )
 
         profileButton = Gtk.Button(
-            label = "Defined User Profils"
+            label = "User Profiles"
+        )
+
+        basicsButton = Gtk.Button(
+            label = "Basic Linux Concepts"
+        )
+
+        appsButton = Gtk.Button(
+            label = "Rewind Applications"
         )
 
         returnButton = Gtk.Button(
@@ -754,9 +786,29 @@ class KineatPage(Gtk.Box):
         )
 
         # Event
+        aboutdistroButton.connect(
+            "clicked",
+            self.on_about_clicked
+        )
+
         returnButton.connect(
             "clicked",
             self.on_return_clicked
+        )
+
+        profileButton.connect(
+            "clicked",
+            self.on_profiles_clicked
+        )
+
+        basicsButton.connect(
+            "clicked",
+            self.on_basics_clicked
+        )
+
+        appsButton.connect(
+            "clicked",
+            self.on_apps_clicked
         )
 
         # Layout
@@ -772,10 +824,168 @@ class KineatPage(Gtk.Box):
         self.append(title)
         self.append(aboutdistroButton)
         self.append(profileButton)
+        self.append(basicsButton)
+        self.append(appsButton)
         self.append(returnButton)
+
+    def on_about_clicked(self, button):
+        self.hub.go_kineatabout()
+
+    def on_profiles_clicked(self, button):
+        self.hub.go_profiles()
+
+    def on_basics_clicked(self, button):
+        self.hub.go_basics()
+
+    def on_apps_clicked(self, button):
+        self.hub.go_apps()
 
     def on_return_clicked(self, button):
         self.hub.go_main()
+
+class KineatAbout(Gtk.Box):
+    # Initialization
+    def __init__(self, hub):
+        super().__init__(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
+
+        self.set_valign(
+            Gtk.Align.CENTER
+        )
+
+        self.hub = hub
+
+        # Widgets
+        title = Gtk.Label(
+            label = "About Rewind OS"
+        )
+
+        returnButton = Gtk.Button(
+            label = "Return"
+        )
+
+        # Event
+        returnButton.connect(
+            "clicked",
+            self.on_return_clicked
+        )
+
+        # Layout
+        self.append(title)
+        self.append(returnButton)
+
+    def on_return_clicked(self, button):
+        self.hub.go_kineat()
+
+class KineatProfiles(Gtk.Box):
+    # Initialization
+    def __init__(self, hub):
+        super().__init__(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
+
+        self.set_valign(
+            Gtk.Align.CENTER
+        )
+
+        self.hub = hub
+
+        # Widgets
+        title = Gtk.Label(
+            label = "User Profiles"
+        )
+
+        returnButton = Gtk.Button(
+            label = "Return"
+        )
+
+        # Event
+        returnButton.connect(
+            "clicked",
+            self.on_return_clicked
+        )
+
+        # Layout
+        self.append(title)
+        self.append(returnButton)
+
+    def on_return_clicked(self, button):
+        self.hub.go_kineat()
+
+class KineatBasics(Gtk.Box):
+    # Initialization
+    def __init__(self, hub):
+        super().__init__(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
+
+        self.set_valign(
+            Gtk.Align.CENTER
+        )
+
+        self.hub = hub
+
+        # Widgets
+        title = Gtk.Label(
+            label = "Basic Linux Concepts"
+        )
+
+        returnButton = Gtk.Button(
+            label = "Return"
+        )
+
+        # Event
+        returnButton.connect(
+            "clicked",
+            self.on_return_clicked
+        )
+
+        # Layout
+        self.append(title)
+        self.append(returnButton)
+
+    def on_return_clicked(self, button):
+        self.hub.go_kineat()
+
+class KineatApps(Gtk.Box):
+    # Initialization
+    def __init__(self, hub):
+        super().__init__(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
+
+        self.set_valign(
+            Gtk.Align.CENTER
+        )
+
+        self.hub = hub
+
+        # Widgets
+        title = Gtk.Label(
+            label = "Rewind Applications"
+        )
+
+        returnButton = Gtk.Button(
+            label = "Return"
+        )
+
+        # Event
+        returnButton.connect(
+            "clicked",
+            self.on_return_clicked
+        )
+
+        # Layout
+        self.append(title)
+        self.append(returnButton)
+
+    def on_return_clicked(self, button):
+        self.hub.go_kineat()
 
 class RewindApp(Gtk.Application):
     def __init__(self):
