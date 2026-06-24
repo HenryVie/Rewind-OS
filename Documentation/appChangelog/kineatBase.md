@@ -15,3 +15,9 @@
 - Fixed the path bug, now Kineat Base can launch its documents from anywhere on the system
 ### Version Prototype 1.1.2
 - Fixed the path bug which caused Kineat to be unable to be launched from Welcome when Welcome is ran via app launcher
+
+## 24/6/2026
+### Version Prototype 2.0
+- Kineat now became GUI app, given a simple graphical user interface by using Python and GTK toolkit
+- Connected as a function inside the new Rewind Hub app
+- Some basic documents were written to serve as database
