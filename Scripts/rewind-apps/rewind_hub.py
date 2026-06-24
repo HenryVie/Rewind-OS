@@ -851,15 +851,19 @@ class KineatAbout(Gtk.Box):
             spacing=10
         )
 
-        self.set_valign(
-            Gtk.Align.CENTER
-        )
-
         self.hub = hub
 
         # Widgets
+        
         title = Gtk.Label(
             label = "About Rewind OS"
+        )     
+
+        content = Gtk.Label(
+            label = """
+Rewind OS is a Fedora-based Linux distribution designed to combine retro-inspired design with modern usability.
+The goal of Rewind OS is to provide a friendly, educational, and customizable computing experience.
+"""
         )
 
         returnButton = Gtk.Button(
@@ -874,7 +878,19 @@ class KineatAbout(Gtk.Box):
 
         # Layout
         self.append(title)
+        self.append(content)
         self.append(returnButton)
+
+        title.set_xalign(0)
+
+        content.set_wrap(True)
+        content.set_xalign(0)
+        content.set_hexpand(True)
+
+        self.set_margin_top(30)
+        self.set_margin_bottom(30)
+        self.set_margin_start(20)
+        self.set_margin_end(20)
 
     def on_return_clicked(self, button):
         self.hub.go_kineat()
@@ -887,15 +903,76 @@ class KineatProfiles(Gtk.Box):
             spacing=10
         )
 
-        self.set_valign(
-            Gtk.Align.CENTER
-        )
-
         self.hub = hub
+
+        scroll = Gtk.ScrolledWindow()
+
+        contentBox = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
 
         # Widgets
         title = Gtk.Label(
             label = "User Profiles"
+        )
+
+        content = Gtk.Label(
+            label = """
+Student
+Designed for studying, research, programming, and office work.
+
+Recommended Applications:
+• LibreOffice
+• Brave Browser
+• Okular
+• GIMP
+
+
+
+Gamer
+Designed for gaming and entertainment.
+
+Recommended Applications:
+• Steam
+• Lutris
+• MangoHud
+• Discord
+
+
+
+Creator
+Designed for content creation, graphic design, video editing, and streaming.
+
+Recommended Applications:
+• Brave Browser
+• GIMP
+• Krita
+• Kdenlive
+• OBS Studio
+
+
+
+Hobbyist
+A balanced profile for everyday computing and personal projects.
+
+Recommended Applications:
+• Brave Browser
+• VLC
+• LibreOffice
+• GIMP
+
+
+
+Beginner
+A simple starting point for users new to Linux.
+
+Recommended Applications:
+• Brave Browser
+• LibreOffice
+• VLC
+• Kineat Base
+"""
         )
 
         returnButton = Gtk.Button(
@@ -909,8 +986,24 @@ class KineatProfiles(Gtk.Box):
         )
 
         # Layout
-        self.append(title)
-        self.append(returnButton)
+        contentBox.append(title)
+        title.set_xalign(0)
+
+        contentBox.append(content)
+        content.set_wrap(True)
+        content.set_xalign(0)
+
+        self.set_margin_top(30)
+        self.set_margin_bottom(30)
+        self.set_margin_start(20)
+        self.set_margin_end(20)
+
+        contentBox.append(returnButton)
+
+        self.append(scroll)
+        scroll.set_child(contentBox)
+        scroll.set_vexpand(True)
+        scroll.set_hexpand(True)
 
     def on_return_clicked(self, button):
         self.hub.go_kineat()
@@ -923,15 +1016,90 @@ class KineatBasics(Gtk.Box):
             spacing=10
         )
 
-        self.set_valign(
-            Gtk.Align.CENTER
-        )
-
         self.hub = hub
+
+        scroll = Gtk.ScrolledWindow()
+
+        contentBox = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
 
         # Widgets
         title = Gtk.Label(
             label = "Basic Linux Concepts"
+        )
+
+        content  = Gtk.Label(
+            label = """
+Linux
+Linux is an operating system, similar to Windows and macOS. But unlike Windows, Linux is open source and comes in many different distributions such as Fedora, Ubuntu, Mint, etc.
+For an example, because it is open-sourced, I could take the base of Fedora and configured the system, which is how I made Rewind OS.
+
+Distribution (Distro)
+A Linux distribution combines the Linux kernel with softwares, desktop environments, and tools.
+
+Examples:
+• Fedora: known for providing relatively recent software and technologies while maintaining a good balance between stability and modern features.
+• Debian: it is known for its stability and reliability.
+• Ubuntu: Ubuntu is based on Debian. It shares the same stable element of Debian, and unlike Debian, Ubuntu's comes up with more modern softwares and features.
+• Linux Mint: Mint is based on Ubuntu. It was known for being very simple to use. Mint's features and Windows-like interface make it a perfect option for users who moved from Windows and is new to Linux.
+• Arch: Unlike the others, Arch is a very complex distribution to use. Traditionally, Arch provides a minimal installation process where users choose and configure most components themselves.
+
+Each Linux distribution serves a different purpose for different group of user. Think of distributions like different flavors of the same operating system.
+Rewind OS is focused on being simple and approachable so that anyone can use it without being afraid of breaking their system. It includes custom features designed to help users learn and use Linux more easily.
+
+Terminal
+The terminal allows users to interact with the system using text commands. Most everyday tasks can be completed through graphical applications, but the terminal provides additional power and flexibility that pre-made graphical apps may not be able to do.
+
+Package
+A package is a bundle of software that can be installed on the system.
+
+Examples:
+• Firefox
+• VLC
+• LibreOffice
+
+Package managers install and update packages automatically.
+
+Package Manager
+A package manager can install, remove, update, and search for software.
+DNF is Fedora's package manager. While on Debian, it is APT. On Arch, it is Pacman.
+
+Examples commands:
+• dnf install
+• dnf remove
+• dnf update
+
+Because RewindOS is based on Fedora, it also uses DNF as the package manager.
+
+sudo
+Some system changes require elevated permissions. sudo allows a command to run with administrator privileges.
+
+Example:
+sudo dnf update
+
+Open Source
+Open source software makes its source code available for anyone to inspect, modify, and share. Many Linux distros and applications are open-sourced.
+
+Desktop Environment
+A desktop environment provides the graphical interface of the operating system.
+
+Examples:
+• GNOME: Uses a modern and simplified design that many users compare to macOS.
+• KDE Plasma: Uses a traditional desktop layout that many users compare to Windows.
+• XFCE: Uses a traditional desktop layout and focuses on speed, simplicity, and low resource usage.
+
+Rewind OS uses XFCE so that the system is more lightweight.
+
+Filesystem
+A filesystem is how files and folders are organized on a computer. Unlike Windows, Linux does not use drive letters such as C: or D:. Instead, everything begins from a single root directory called "/".
+
+Common locations:
+• /home - User files
+• /etc - System configuration
+• /usr - Installed software
+"""
         )
 
         returnButton = Gtk.Button(
@@ -945,8 +1113,25 @@ class KineatBasics(Gtk.Box):
         )
 
         # Layout
-        self.append(title)
-        self.append(returnButton)
+        contentBox.append(title)
+        title.set_xalign(0)
+
+        contentBox.append(content)
+        content.set_wrap(True)
+        content.set_xalign(0)
+
+        self.set_margin_top(30)
+        self.set_margin_bottom(30)
+        self.set_margin_start(20)
+        self.set_margin_end(20)
+
+        contentBox.append(returnButton)
+
+        self.append(scroll)
+        scroll.set_child(contentBox)
+
+        scroll.set_vexpand(True)
+        scroll.set_hexpand(True)
 
     def on_return_clicked(self, button):
         self.hub.go_kineat()
@@ -959,15 +1144,37 @@ class KineatApps(Gtk.Box):
             spacing=10
         )
 
-        self.set_valign(
-            Gtk.Align.CENTER
-        )
-
         self.hub = hub
+
+        scroll = Gtk.ScrolledWindow()
+
+        contentBox = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
 
         # Widgets
         title = Gtk.Label(
             label = "Rewind Applications"
+        )
+
+        content = Gtk.Label(
+            label = """
+Rewind Hub
+The starting point for new users. This app provide quick access to setup tasks, documentation, and Rewind OS tools.
+
+Rewind Settings
+Manage Rewind-specific settings and preferences. Provides a simple interface for configuring the system without using the terminal.
+
+Rewind Technician
+A collection of diagnostic and maintenance tools. Allows users to view system information and perform basic troubleshooting tasks without typing command lines in the terminal.
+
+Kineat Base
+The built-in knowledge base for Rewind OS. Provides explanations of Linux concepts, user profiles, and Rewind OS features.
+
+Neato (Future)
+An AI assistant designed to help users learn and use Rewind OS more effectively.
+"""
         )
 
         returnButton = Gtk.Button(
@@ -981,8 +1188,25 @@ class KineatApps(Gtk.Box):
         )
 
         # Layout
-        self.append(title)
-        self.append(returnButton)
+        contentBox.append(title)
+        title.set_xalign(0)
+
+        contentBox.append(content)
+        content.set_wrap(True)
+        content.set_xalign(0)
+
+        self.set_margin_top(30)
+        self.set_margin_bottom(30)
+        self.set_margin_start(20)
+        self.set_margin_end(20)
+
+        contentBox.append(returnButton)
+
+        self.append(scroll)
+        scroll.set_child(contentBox)
+
+        scroll.set_vexpand(True)
+        scroll.set_hexpand(True)
 
     def on_return_clicked(self, button):
         self.hub.go_kineat()
