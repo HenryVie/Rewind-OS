@@ -196,7 +196,6 @@ class MainPage(Gtk.Box):
         self.hub.close()
 
 class SettingsPage(Gtk.Box):
-    # Initialization
     def __init__(self, hub):
         super().__init__(
             orientation=Gtk.Orientation.VERTICAL,
@@ -205,53 +204,188 @@ class SettingsPage(Gtk.Box):
 
         self.hub = hub
 
-        # Widgets
-        title = Gtk.Label(
-            label = "SETTINGS"
+        # Main containers
+        self.contentBox = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL,
+            spacing=10
         )
 
-        aboutButton = Gtk.Button(
-            label = "About"
+        self.sidebar = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=5
         )
 
-        personalizeButton = Gtk.Button(
-            label = "Personalization"
+        self.stack = Gtk.Stack()
+
+        # Build UI
+        self.create_widgets()
+        self.create_pages()
+        self.connect_signals()
+        self.build_layout()
+
+    # =========================
+    # Widget Creation
+    # =========================
+
+    def create_widgets(self):
+        self.title = Gtk.Label(
+            label="SETTINGS"
         )
 
-        taskbarButton = Gtk.Button(
-            label = "Taskbar"
+        self.aboutButton = Gtk.Button(
+            label="About"
         )
 
-        applicationButton = Gtk.Button(
-            label = "Applications"
+        self.personalizeButton = Gtk.Button(
+            label="Personalization"
         )
 
-        returnButton = Gtk.Button(
-            label = "Return"
+        self.applicationButton = Gtk.Button(
+            label="Applications"
         )
 
-        # Event
-        returnButton.connect(
-            "clicked",
-            self.on_return_clicked
+        self.returnButton = Gtk.Button(
+            label="Return"
         )
+
+    # =========================
+    # Page Creation
+    # =========================
+
+    def create_pages(self):
+        self.aboutPage = self.build_about_page()
+        self.personalizePage = self.build_personalization_page()
+        self.applicationPage = self.build_application_page()
+
+    def build_about_page(self):
+        page = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
+
+        aboutContent = Gtk.Label(
+                label = """
+About Rewind OS
+
+Version: P1
+Developer: Nguyen Dinh Nam
+Base: Fedora 44 XFCE
+
+A lightweight Linux distro focused on helping users understand, maintain and customize their computer.
+"""
+        )
+
+        aboutContent.set_wrap(True)
+        aboutContent.set_xalign(0)
+
+        page.append(aboutContent)
+
+        return page
+
+    def build_personalization_page(self):
+        page = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
+
+        page.append(
+            Gtk.Label(label="Personalization")
+        )
+
+        return page
+
+    def build_application_page(self):
+        page = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
+
+        browserList = Gtk.StringList.new(["Firefox", "Brave", "Chromium"])
+        browserDropdown = Gtk.DropDown(
+            model=browserList
+        )
+
+        browserDropdown.connect(
+            "notify::selected",
+            self.on_browser_changed
+        )
+
+        page.append(Gtk.Label(label="Rewind Applications"))
+        page.append(Gtk.Label(label="Default Browser"))
+        page.append(browserDropdown)
+
+        return page
+
+    # =========================
+    # Signals
+    # =========================
+
+    def connect_signals(self):
+        self.aboutButton.connect("clicked", self.show_about)
+        self.personalizeButton.connect("clicked", self.show_personalization)
+        self.applicationButton.connect("clicked", self.show_applications)
+        self.returnButton.connect("clicked", self.on_return_clicked)
+
+    def on_browser_changed(self, dropdown, pspec):
+        selected = dropdown.get_selected_item()
+        browser = selected.get_string()
+
+        browserMap = {
+            "Firefox": "org.mozilla.firefox.desktop",
+            "Brave": "com.brave.Browser.desktop",
+            "Chromium": "chromium-browser.desktop"
+        }
+
+        desktopFile = browserMap.get(browser)
         
-        # Layout
-        self.set_valign(
-            Gtk.Align.CENTER
-        )
+        subprocess.run(["xdg-settings", "set", "default-web-browser", desktopFile])
 
+    # =========================
+    # Layout
+    # =========================
+
+    def build_layout(self):
         self.set_margin_top(30)
         self.set_margin_bottom(30)
         self.set_margin_start(20)
         self.set_margin_end(20)
 
-        self.append(title)
-        self.append(aboutButton)
-        self.append(personalizeButton)
-        self.append(taskbarButton)
-        self.append(applicationButton)
-        self.append(returnButton)
+        self.stack.set_hexpand(True)
+        self.stack.set_vexpand(True)
+
+        self.append(self.title)
+        self.append(self.contentBox)
+
+        self.sidebar.append(self.aboutButton)
+        self.sidebar.append(self.personalizeButton)
+        self.sidebar.append(self.applicationButton)
+        self.sidebar.append(self.returnButton)
+
+        self.contentBox.append(self.sidebar)
+        self.contentBox.append(self.stack)
+
+        self.stack.add_named(self.aboutPage, "about")
+        self.stack.add_named(self.personalizePage, "personalization")
+        self.stack.add_named(self.applicationPage, "applications")
+
+        self.stack.set_visible_child_name("about")
+
+    # =========================
+    # Navigation
+    # =========================
+
+    def show_about(self, button):
+        self.stack.set_visible_child_name("about")
+
+    def show_personalization(self, button):
+        self.stack.set_visible_child_name("personalization")
+
+    def show_applications(self, button):
+        self.stack.set_visible_child_name("applications")
+
+    # =========================
+    # Events
+    # =========================
 
     def on_return_clicked(self, button):
         self.hub.go_main()
@@ -1017,7 +1151,6 @@ class KineatBasics(Gtk.Box):
         )
 
         self.hub = hub
-
         scroll = Gtk.ScrolledWindow()
 
         contentBox = Gtk.Box(
