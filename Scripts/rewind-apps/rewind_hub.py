@@ -263,6 +263,9 @@ class SettingsPage(Gtk.Box):
             spacing=10
         )
 
+        page.set_margin_top(10)
+        page.set_margin_start(10)
+
         aboutContent = Gtk.Label(
                 label = """
 About Rewind OS
@@ -288,6 +291,9 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
             spacing=10
         )
 
+        page.set_margin_top(10)
+        page.set_margin_start(10)
+
         page.append(
             Gtk.Label(label="Personalization")
         )
@@ -300,19 +306,30 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
             spacing=10
         )
 
-        browserList = Gtk.StringList.new(["Firefox", "Brave", "Chromium"])
-        browserDropdown = Gtk.DropDown(
+        page.set_margin_top(10)
+        page.set_margin_start(10)
+
+        self.browserNames = ["Firefox", "Brave", "Chromium"]
+        browserList = Gtk.StringList.new(self.browserNames)
+        
+        self.browserDropdown = Gtk.DropDown(
             model=browserList
         )
 
-        browserDropdown.connect(
+        self.browserDropdown.connect(
             "notify::selected",
             self.on_browser_changed
         )
 
-        page.append(Gtk.Label(label="Rewind Applications"))
-        page.append(Gtk.Label(label="Default Browser"))
-        page.append(browserDropdown)
+        page.append(Gtk.Label(
+            label="Rewind Applications"
+            ))
+        page.append(Gtk.Label(
+            label="Default Browser"
+            ))
+        page.append(self.browserDropdown)
+
+        self.load_current_browser()
 
         return page
 
@@ -325,6 +342,26 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
         self.personalizeButton.connect("clicked", self.show_personalization)
         self.applicationButton.connect("clicked", self.show_applications)
         self.returnButton.connect("clicked", self.on_return_clicked)
+
+    def load_current_browser(self):
+        browserMap = {
+            "Firefox": "org.mozilla.firefox.desktop",
+            "Brave": "com.brave.Browser.desktop",
+            "Chromium": "chromium-browser.desktop"
+        }
+
+        result = subprocess.run(
+            ["xdg-settings", "get", "default-web-browser"],
+            capture_output=True,
+            text=True
+        )
+
+        currentBrowser = result.stdout.strip()
+
+        for name, desktopName in browserMap.items():
+            if currentBrowser == desktopName:
+                index = self.browserNames.index(name)
+                self.browserDropdown.set_selected(index)
 
     def on_browser_changed(self, dropdown, pspec):
         selected = dropdown.get_selected_item()
