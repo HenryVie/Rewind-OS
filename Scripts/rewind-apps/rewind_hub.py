@@ -1,5 +1,7 @@
 import subprocess
 import gi
+import os
+
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk
 
@@ -294,9 +296,27 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
         page.set_margin_top(10)
         page.set_margin_start(10)
 
+        self.wallpaperNames = ["Fedora Blue", "The Final F43 Night", "Retro Blank"]
+        wallpaperLists = Gtk.StringList.new(self.wallpaperNames)
+
+        self.wallpaperDropdown = Gtk.DropDown(
+            model=wallpaperLists
+        )
+
+        self.wallpaperDropdown.connect(
+            "notify::selected",
+            self.on_wallpaper_changed
+        )
+
         page.append(
             Gtk.Label(label="Personalization")
         )
+        page.append(Gtk.Label(
+            label="Wallpapers"
+            ))
+        page.append(self.wallpaperDropdown)
+
+        self.load_current_wallpaper()
 
         return page
 
@@ -343,6 +363,7 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
         self.applicationButton.connect("clicked", self.show_applications)
         self.returnButton.connect("clicked", self.on_return_clicked)
 
+    # Default browser
     def load_current_browser(self):
         browserMap = {
             "Firefox": "org.mozilla.firefox.desktop",
@@ -376,6 +397,68 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
         desktopFile = browserMap.get(browser)
         
         subprocess.run(["xdg-settings", "set", "default-web-browser", desktopFile])
+
+    # Wallpaper    
+    def load_current_wallpaper(self):
+        WALLPAPER_PROPERTY = "/backdrop/screen0/monitorVirtual1/workspace0/last-image"
+        HOME = os.path.expanduser("~")
+
+        result = subprocess.run(["xfconf-query", "-c", "xfce4-desktop", "-p", WALLPAPER_PROPERTY],
+            capture_output=True,
+            text=True
+        )
+
+        currentWallpaper = result.stdout.strip()
+
+        wallpaperMap = {
+            "Fedora Blue":
+                f"{HOME}/Rewind-OS/Themes/wallpapers/fedora_darkblue",
+
+            "The Final F43 Night":
+                f"{HOME}/Rewind-OS/Themes/wallpapers/the_final_f43_night",
+
+            "Retro Blank":
+                f"{HOME}/Rewind-OS/Themes/wallpapers/windows98_classic_blank"
+        }
+
+        result = subprocess.run(
+                ["xfconf-query", "-c", "xfce4-desktop", "-p", WALLPAPER_PROPERTY],
+                capture_output=True,
+                text=True
+            )
+
+        currentWallpaper = result.stdout.strip()
+
+        for name, path in wallpaperMap.items():
+            if currentWallpaper == path:
+                index = self.wallpaperNames.index(name)
+                self.wallpaperDropdown.set_selected(index)
+                break
+
+    def on_wallpaper_changed(self, dropdown, pspec):
+        WALLPAPER_PROPERTY = "/backdrop/screen0/monitorVirtual1/workspace0/last-image"
+
+        selected = dropdown.get_selected_item()
+        wallpaper = selected.get_string()
+
+        HOME = os.path.expanduser("~")
+
+        wallpaperMap = {
+            "Fedora Blue":
+                f"{HOME}/Rewind-OS/Themes/wallpapers/fedora_darkblue",
+
+            "The Final F43 Night":
+                f"{HOME}/Rewind-OS/Themes/wallpapers/the_final_f43_night",
+
+            "Retro Blank":
+                f"{HOME}/Rewind-OS/Themes/wallpapers/windows98_classic_blank"
+        }
+
+        desktopFile = wallpaperMap.get(wallpaper)
+        if desktopFile is None:
+            return
+
+        subprocess.run(["xfconf-query", "-c", "xfce4-desktop", "-p", WALLPAPER_PROPERTY, "-s", desktopFile])
 
     # =========================
     # Layout
