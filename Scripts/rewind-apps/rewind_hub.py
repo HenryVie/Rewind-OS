@@ -308,6 +308,25 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
             self.on_wallpaper_changed
         )
 
+        self.themeNames = ["Greybird-dark", "Greybird", "Adwaita"]
+        themeLists = Gtk.StringList.new(self.themeNames)
+
+        self.themeDropdown = Gtk.DropDown(
+            model=themeLists
+        )
+
+        currentTheme = self.get_current_theme()
+
+        for index, theme in enumerate(self.themeNames):
+            if theme == currentTheme:
+                self.themeDropdown.set_selected(index)
+                break
+
+        self.themeDropdown.connect(
+            "notify::selected",
+            self.on_theme_changed
+        )
+
         page.append(
             Gtk.Label(label="Personalization")
         )
@@ -315,6 +334,10 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
             label="Wallpapers"
             ))
         page.append(self.wallpaperDropdown)
+        page.append(Gtk.Label(
+            label="Theme"
+            ))
+        page.append(self.themeDropdown)
 
         self.load_current_wallpaper()
 
@@ -459,6 +482,29 @@ A lightweight Linux distro focused on helping users understand, maintain and cus
             return
 
         subprocess.run(["xfconf-query", "-c", "xfce4-desktop", "-p", WALLPAPER_PROPERTY, "-s", desktopFile])
+
+    # Theme
+    def get_current_theme(self):
+        theme = subprocess.run(
+            ["xfconf-query", "-c", "xsettings", "-p", "/Net/ThemeName"],
+            capture_output=True,
+            text=True
+        )
+
+        return theme.stdout.strip()
+    
+    def set_theme(self, theme):
+        subprocess.run(
+            ["xfconf-query", "-c", "xsettings", "-p", "/Net/ThemeName", "-s", theme],
+            capture_output=True,
+            text=True
+        )
+
+    def on_theme_changed(self, dropdown, param):
+        index = dropdown.get_selected()
+        theme = self.themeNames[index]
+
+        self.set_theme(theme)
 
     # =========================
     # Layout
