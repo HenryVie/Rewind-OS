@@ -25,6 +25,11 @@ class RewindHub(Gtk.ApplicationWindow):
         )
 
         self.stack.add_named(
+            WelcomePage(self),
+            "welcome"
+        )
+
+        self.stack.add_named(
             SettingsPage(self),
             "settings"
         )
@@ -85,6 +90,9 @@ class RewindHub(Gtk.ApplicationWindow):
     def go_main(self):
         self.stack.set_visible_child_name("main")
 
+    def go_welcome(self):
+        self.stack.set_visible_child_name("welcome")
+
     def go_settings(self):
         self.stack.set_visible_child_name("settings")
 
@@ -131,7 +139,11 @@ class MainPage(Gtk.Box):
 
         # Widgets
         title = Gtk.Label(
-            label="Welcome to Rewind OS!"
+            label="Rewind Hub!"
+        )
+
+        welcomeButton = Gtk.Button(
+            label="Welcome"
         )
 
         settingsButton = Gtk.Button(
@@ -151,6 +163,11 @@ class MainPage(Gtk.Box):
         )
 
         # Events
+        welcomeButton.connect(
+            "clicked",
+            self.on_welcome_clicked
+        )
+
         settingsButton.connect(
             "clicked",
             self.on_settings_clicked
@@ -180,10 +197,14 @@ class MainPage(Gtk.Box):
         self.set_margin_end(20)
 
         self.append(title)
+        self.append(welcomeButton)
         self.append(settingsButton)
         self.append(technicianButton)
         self.append(kineatButton)
         self.append(exitButton)
+
+    def on_welcome_clicked(self, button):
+        self.hub.go_welcome()
 
     def on_settings_clicked(self, button):
         self.hub.go_settings()
@@ -196,6 +217,95 @@ class MainPage(Gtk.Box):
 
     def on_exit_clicked(self, button):
         self.hub.close()
+
+class WelcomePage(Gtk.Box):
+    # Initialization
+    def __init__(self, hub):
+        super().__init__(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=10
+        )
+
+        self.hub = hub
+
+        # Widgets
+        title = Gtk.Label(
+            label = "WELCOME"
+        )
+
+        titleText = Gtk.Label(label="Welcome to Rewind OS")
+
+        description = Gtk.Label(label="A beginner-friendly Linux distribution built on Fedora Linux.")
+
+        quickTitle = Gtk.Label(label="Quick Actions")
+
+        settingsButton = Gtk.Button(label="⚙ Open Settings")
+        technicianButton = Gtk.Button(label="🩺 Open Technician")
+        kineatButton = Gtk.Button(label="📖 Learn Linux")
+
+        tipTitle = Gtk.Label(label="Tip of the Day")
+        tip = Gtk.Label(label="Linux is case-sensitive.")
+
+        returnButton = Gtk.Button(
+            label = "Return"
+        )
+
+        # Event
+        settingsButton.connect(
+            "clicked",
+            self.on_settings_clicked
+        )
+
+        technicianButton.connect(
+            "clicked",
+            self.on_technician_clicked
+        )
+
+        kineatButton.connect(
+            "clicked",
+            self.on_kineat_clicked
+        )
+
+        returnButton.connect(
+            "clicked",
+            self.on_return_clicked
+        )
+
+        # Layout
+        self.set_valign(
+            Gtk.Align.CENTER
+        )
+
+        self.set_margin_top(30)
+        self.set_margin_bottom(30)
+        self.set_margin_start(20)
+        self.set_margin_end(20)
+
+        self.append(title)
+        self.append(titleText)
+        self.append(description)
+        self.append(Gtk.Separator())
+        self.append(quickTitle)
+        self.append(settingsButton)
+        self.append(technicianButton)
+        self.append(kineatButton)
+        self.append(Gtk.Separator())
+        self.append(tipTitle)
+        self.append(tip)
+        self.append(returnButton)
+
+        # Function button
+    def on_settings_clicked(self, button):
+        self.hub.go_settings()
+
+    def on_technician_clicked(self, button):
+        self.hub.go_technician()
+
+    def on_kineat_clicked(self, button):
+        self.hub.go_kineat()
+
+    def on_return_clicked(self, button):
+        self.hub.go_main()
 
 class SettingsPage(Gtk.Box):
     def __init__(self, hub):
