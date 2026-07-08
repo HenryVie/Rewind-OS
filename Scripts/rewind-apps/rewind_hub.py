@@ -1,6 +1,7 @@
 import subprocess
 import gi
 import os
+import random
 
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk
@@ -226,26 +227,79 @@ class WelcomePage(Gtk.Box):
             spacing=10
         )
 
+        topBar = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL
+        )
+
+        grid = Gtk.Grid()
+
+        grid.set_column_spacing(20)
+        grid.set_row_spacing(20)
+
         self.hub = hub
 
         # Widgets
-        title = Gtk.Label(
-            label = "WELCOME"
+        title = Gtk.Label()
+        title.set_markup(
+            "<span size='20000' weight='bold'>Welcome to Rewind OS</span>"
         )
-
-        titleText = Gtk.Label(label="Welcome to Rewind OS")
 
         description = Gtk.Label(label="A beginner-friendly Linux distribution built on Fedora Linux.")
 
-        quickTitle = Gtk.Label(label="Quick Actions")
+        statusFrame = Gtk.Frame(
+            label="System Status"
+        )
+
+        statusBox = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=5
+        )
+                
+        internetstatDisplay = Gtk.Label(
+            label = self.internetStat()
+        )
+
+        diskDisplay = Gtk.Label(
+            label = self.diskUsage()
+        )
+
+        memoryDisplay = Gtk.Label(
+            label = self.ramUsage()
+        )
+
+        actionsFrame = Gtk.Frame(
+            label="Quick Actions"
+        )
+
+        actionsBox = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=5
+        )
 
         settingsButton = Gtk.Button(label="⚙ Open Settings")
         technicianButton = Gtk.Button(label="🩺 Open Technician")
         kineatButton = Gtk.Button(label="📖 Learn Linux")
 
-        tipTitle = Gtk.Label(label="Tip of the Day")
-        tip = Gtk.Label(label="Linux is case-sensitive.")
+        tipFrame = Gtk.Frame(
+            label="Tip of the Day"
+        )
 
+        tips = [
+            "Linux is case-sensitive.",
+            "Use Tab to auto-complete commands.",
+            "Use pwd to print the current directory.",
+            "Use man <command> to read the manual.",
+            "Everything in Linux is treated as a file.",
+            "The root directory is represented by '/'.",
+            "Hidden files begin with a dot (.).",
+            "Ctrl + C stops a running command.",
+            "sudo gives temporary administrator privileges.",
+            "Use history to see previously executed commands."
+        ]
+        tip = Gtk.Label(
+            label=random.choice(tips)
+        )
+        
         returnButton = Gtk.Button(
             label = "Return"
         )
@@ -281,18 +335,32 @@ class WelcomePage(Gtk.Box):
         self.set_margin_start(20)
         self.set_margin_end(20)
 
+        grid.attach(statusFrame, 0, 0, 1, 1)
+        grid.attach(actionsFrame, 1, 0, 1, 1)
+
+        topBar.append(returnButton)
+        self.append(topBar)
+        statusFrame.set_hexpand(True)
+        actionsFrame.set_hexpand(True)
+
         self.append(title)
-        self.append(titleText)
         self.append(description)
         self.append(Gtk.Separator())
-        self.append(quickTitle)
-        self.append(settingsButton)
-        self.append(technicianButton)
-        self.append(kineatButton)
-        self.append(Gtk.Separator())
-        self.append(tipTitle)
-        self.append(tip)
-        self.append(returnButton)
+
+        statusBox.append(internetstatDisplay)
+        statusBox.append(diskDisplay)
+        statusBox.append(memoryDisplay)
+        statusFrame.set_child(statusBox)
+        
+        actionsBox.append(settingsButton)
+        actionsBox.append(technicianButton)
+        actionsBox.append(kineatButton)
+        actionsFrame.set_child(actionsBox)
+
+        self.append(grid)
+
+        self.append(tipFrame)
+        self.append(tip)        
 
         # Function button
     def on_settings_clicked(self, button):
@@ -306,6 +374,51 @@ class WelcomePage(Gtk.Box):
 
     def on_return_clicked(self, button):
         self.hub.go_main()
+
+    # Functions
+    def internetStat(self):
+        result = subprocess.run(
+            ["ping", "-c", "1", "8.8.8.8"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+
+        if result.returncode == 0:
+            return "Status: Internet Connected"
+        else:
+            return "Status: No Internet Connection"
+        
+    def diskUsage(self):
+        output = subprocess.check_output(
+            ["df", "-h", "/"],
+            text=True
+        )
+
+        lines = output.splitlines()
+
+        diskInfo = lines[1].split()
+        percent = diskInfo[4]
+
+        return (
+            f"Disk usage: {percent}"
+        )
+    
+    def ramUsage(self):
+        output = subprocess.check_output(
+            ["free", "-h"],
+            text=True
+        )
+
+        lines = output.splitlines()
+
+        memUsage = lines[1].split()
+
+        total = memUsage[1]
+        used = memUsage[2]
+
+        return (
+            f"RAM usage: {used}/{total}"
+        )
 
 class SettingsPage(Gtk.Box):
     def __init__(self, hub):
@@ -340,8 +453,9 @@ class SettingsPage(Gtk.Box):
     # =========================
 
     def create_widgets(self):
-        self.title = Gtk.Label(
-            label="SETTINGS"
+        self.title = Gtk.Label()
+        self.title.set_markup(
+            "<span size='20000' weight='bold'>Rewind Settings</span>"
         )
 
         self.aboutButton = Gtk.Button(
@@ -674,35 +788,46 @@ class TechnicianPage(Gtk.Box):
             spacing=10
         )
 
+        topBar = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL
+        )
+
+        grid = Gtk.Grid()
+
+        grid.set_column_spacing(20)
+        grid.set_row_spacing(20)
+
         self.hub = hub
 
         # Widgets
-        title = Gtk.Label(
-            label = "TECHNICIAN"
-        )
+        self.title = Gtk.Label()
+        self.title.set_markup(
+            "<span size='20000' weight='bold'>Rewind Technical Toolbox</span>"
+        )    
 
-        systeminfoButton = Gtk.Button(
+        systeminfoFrame = Gtk.Frame(
             label = "System Information"
         )
-
-        internetstatButton = Gtk.Button(
-            label = "Check Internet Status"
+        systeminfoBox = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=5
         )
 
-        diskspaceButton = Gtk.Button(
-            label = "Disk Space"
+
+        systemhealthFrame = Gtk.Frame(
+            label = "System Health"
+        )
+        systemhealthBox = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=5
         )
 
-        memoryusageButton = Gtk.Button(
-            label = "Memory Usage"
+        maintenanceFrame = Gtk.Frame(
+            label = "Maintenance"
         )
-
-        updatecheckButton = Gtk.Button(
-            label = "Check for Updates"
-        )
-
-        refreshcacheButton = Gtk.Button(
-            label = "Refresh Package Cache"
+        maintenanceBox = Gtk.Box(
+            orientation=Gtk.Orientation.VERTICAL,
+            spacing=5
         )
 
         returnButton = Gtk.Button(
@@ -710,36 +835,6 @@ class TechnicianPage(Gtk.Box):
         )
 
         # Event
-        systeminfoButton.connect(
-            "clicked",
-            self.on_systeminfo_clicked
-        )
-
-        internetstatButton.connect(
-            "clicked",
-            self.on_internetstat_clicked
-        )
-
-        diskspaceButton.connect(
-            "clicked",
-            self.on_diskspace_clicked
-        )
-
-        memoryusageButton.connect(
-            "clicked",
-            self.on_memory_clicked
-        )
-
-        updatecheckButton.connect(
-            "clicked",
-            self.on_update_clicked
-        )
-
-        refreshcacheButton.connect(
-            "clicked",
-            self.on_cache_clicked
-        )
-
         returnButton.connect(
             "clicked",
             self.on_return_clicked
@@ -750,39 +845,38 @@ class TechnicianPage(Gtk.Box):
             Gtk.Align.CENTER
         )
 
+        topBar.append(returnButton)
+        self.append(topBar)
+        systeminfoFrame.set_hexpand(True)
+        systemhealthFrame.set_hexpand(True)
+
         self.set_margin_top(30)
         self.set_margin_bottom(30)
         self.set_margin_start(20)
         self.set_margin_end(20)
 
-        self.append(title)
-        self.append(systeminfoButton)
-        self.append(internetstatButton)
-        self.append(diskspaceButton)
-        self.append(memoryusageButton)
-        self.append(updatecheckButton)
-        self.append(refreshcacheButton)
-        self.append(returnButton)
+        grid.attach(systeminfoFrame, 0, 0, 1, 1)
+        grid.attach(systemhealthFrame, 1, 0, 1, 1)
 
-    # Function Buttons
-    def on_systeminfo_clicked(self, button):
-        self.hub.go_sysinfo()
+        self.append(self.title)
 
-    def on_internetstat_clicked(self, button):
-        self.hub.go_internetstat()
+        systeminfoBox.append(TechnicianSysInfo(self.hub))
+        systeminfoFrame.set_child(systeminfoBox)
 
-    def on_diskspace_clicked(self, button):
-        self.hub.go_diskspace()
-    
-    def on_memory_clicked(self, button):
-        self.hub.go_memoryusage()
+        systemhealthBox.append(TechnicianInternetStat(self.hub))
+        systemhealthBox.append(TechnicianDiskSpace(self.hub))
+        systemhealthBox.append(TechnicianMemory(self.hub))
+        systemhealthFrame.set_child(systemhealthBox)
 
-    def on_update_clicked(self, button):
-        self.hub.go_updatechecker()
+        maintenanceBox.append(TechnicianUpdate(self.hub))
+        maintenanceBox.append(TechnicianCache(self.hub))
+        maintenanceFrame.set_child(maintenanceBox)
 
-    def on_cache_clicked(self, button):
-        self.hub.go_refreshcache()
+        self.append(grid)
+        
+        self.append(maintenanceFrame)
 
+    # Buttons
     def on_return_clicked(self, button):
         self.hub.go_main()
 
@@ -809,19 +903,9 @@ class TechnicianSysInfo(Gtk.Box):
             label = self.showInfo()
         )
 
-        returnButton = Gtk.Button(
-            label = "Return"
-        )
-
-        returnButton.connect(
-            "clicked",
-            self.on_return_clicked
-        )
-
         # Layout
         self.append(title)
         self.append(info)
-        self.append(returnButton)
 
     def showInfo(self):
         hostname = subprocess.check_output(
@@ -872,19 +956,9 @@ class TechnicianInternetStat(Gtk.Box):
             label = self.internetStat()
         )
 
-        returnButton = Gtk.Button(
-            label = "Return"
-        )
-
-        returnButton.connect(
-            "clicked",
-            self.on_return_clicked
-        )
-
         # Layout
         self.append(title)
         self.append(stat)
-        self.append(returnButton)
 
     def internetStat(self):
         result = subprocess.run(
@@ -924,19 +998,9 @@ class TechnicianDiskSpace(Gtk.Box):
             label = self.disk()
         )
 
-        returnButton = Gtk.Button(
-            label = "Return"
-        )
-
-        returnButton.connect(
-            "clicked",
-            self.on_return_clicked
-        )
-
         # Layout
         self.append(title)
         self.append(diskInfo)
-        self.append(returnButton)
 
     def disk(self):
         output = subprocess.check_output(
@@ -984,20 +1048,9 @@ class TechnicianMemory(Gtk.Box):
             label = self.usage()
         )
 
-        returnButton = Gtk.Button(
-            label = "Return"
-        )
-
-        # Event
-        returnButton.connect(
-            "clicked",
-            self.on_return_clicked
-        )
-
         # Layout
         self.append(title)
         self.append(memoryInfo)
-        self.append(returnButton)
 
     def usage(self):
         output = subprocess.check_output(
@@ -1048,26 +1101,16 @@ class TechnicianUpdate(Gtk.Box):
             label = "Click the Check for Update button to start checking for update"
         )
 
-        returnButton = Gtk.Button(
-            label = "Return"
-        )
-
         # Event
         updateChecker.connect(
             "clicked",
             self.on_update_clicked
         )
         
-        returnButton.connect(
-            "clicked",
-            self.on_return_clicked
-        )
-        
         # Layout
         self.append(title)
         self.append(self.updateResult)
         self.append(updateChecker)
-        self.append(returnButton)
 
     def on_update_clicked(self, button):
             self.updateResult.set_text(self.upDate())
@@ -1116,10 +1159,6 @@ class TechnicianCache(Gtk.Box):
 
         refreshCache = Gtk.Button(
             label = "Click to refresh caches"
-        )        
-
-        returnButton = Gtk.Button(
-            label = "Return"
         )
 
         # Event
@@ -1128,17 +1167,11 @@ class TechnicianCache(Gtk.Box):
             self.on_refresh_clicked
         )
 
-        returnButton.connect(
-            "clicked",
-            self.on_return_clicked
-        )
-
         # Layout
         self.append(title)
         self.append(self.cacheResult)
         self.append(refreshCache)
-        self.append(returnButton)
-
+        
     # Function
     def on_refresh_clicked(self, button):
         self.cacheResult.set_text(
@@ -1171,8 +1204,9 @@ class KineatPage(Gtk.Box):
         self.hub = hub
 
         # Widgets
-        title = Gtk.Label(
-            label = "KINEAT BASE"
+        self.title = Gtk.Label()
+        self.title.set_markup(
+            "<span size='20000' weight='bold'>Kineat Database</span>"
         )
 
         aboutdistroButton = Gtk.Button(
@@ -1231,7 +1265,7 @@ class KineatPage(Gtk.Box):
         self.set_margin_start(20)
         self.set_margin_end(20)
         
-        self.append(title)
+        self.append(self.title)
         self.append(aboutdistroButton)
         self.append(profileButton)
         self.append(basicsButton)
@@ -1261,13 +1295,17 @@ class KineatAbout(Gtk.Box):
             spacing=10
         )
 
+        topBar = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL
+        )
+
         self.hub = hub
 
         # Widgets
         
         title = Gtk.Label(
             label = "About Rewind OS"
-        )     
+        )
 
         content = Gtk.Label(
             label = """
@@ -1287,9 +1325,11 @@ The goal of Rewind OS is to provide a friendly, educational, and customizable co
         )
 
         # Layout
+        topBar.append(returnButton)
+        self.append(topBar)
+
         self.append(title)
         self.append(content)
-        self.append(returnButton)
 
         title.set_xalign(0)
 
@@ -1311,6 +1351,10 @@ class KineatProfiles(Gtk.Box):
         super().__init__(
             orientation=Gtk.Orientation.VERTICAL,
             spacing=10
+        )
+
+        topBar = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL
         )
 
         self.hub = hub
@@ -1396,6 +1440,9 @@ Recommended Applications:
         )
 
         # Layout
+        topBar.append(returnButton)
+        self.append(topBar)
+
         contentBox.append(title)
         title.set_xalign(0)
 
@@ -1407,8 +1454,6 @@ Recommended Applications:
         self.set_margin_bottom(30)
         self.set_margin_start(20)
         self.set_margin_end(20)
-
-        contentBox.append(returnButton)
 
         self.append(scroll)
         scroll.set_child(contentBox)
@@ -1432,6 +1477,10 @@ class KineatBasics(Gtk.Box):
         contentBox = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL,
             spacing=10
+        )
+
+        topBar = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL
         )
 
         # Widgets
@@ -1522,6 +1571,9 @@ Common locations:
         )
 
         # Layout
+        topBar.append(returnButton)
+        self.append(topBar)
+
         contentBox.append(title)
         title.set_xalign(0)
 
@@ -1533,8 +1585,6 @@ Common locations:
         self.set_margin_bottom(30)
         self.set_margin_start(20)
         self.set_margin_end(20)
-
-        contentBox.append(returnButton)
 
         self.append(scroll)
         scroll.set_child(contentBox)
@@ -1560,6 +1610,10 @@ class KineatApps(Gtk.Box):
         contentBox = Gtk.Box(
             orientation=Gtk.Orientation.VERTICAL,
             spacing=10
+        )
+
+        topBar = Gtk.Box(
+            orientation=Gtk.Orientation.HORIZONTAL
         )
 
         # Widgets
@@ -1597,6 +1651,9 @@ An AI assistant designed to help users learn and use Rewind OS more effectively.
         )
 
         # Layout
+        topBar.append(returnButton)
+        self.append(topBar)
+
         contentBox.append(title)
         title.set_xalign(0)
 
@@ -1608,8 +1665,6 @@ An AI assistant designed to help users learn and use Rewind OS more effectively.
         self.set_margin_bottom(30)
         self.set_margin_start(20)
         self.set_margin_end(20)
-
-        contentBox.append(returnButton)
 
         self.append(scroll)
         scroll.set_child(contentBox)
